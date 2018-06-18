@@ -11,23 +11,34 @@ export class Restaurant extends React.Component {
 
     let restService = new RestaurantService();
     restService.getRestaurants().then(myList => {
-        this.setState({
-            ...this.state,
-            restaurants: myList
-        });
-        console.log(this.state.restaurants);
+      this.setState({
+        ...this.state,
+        restaurants: myList
+      });
+      console.log(this.state.restaurants);
     });
   }
 
   render() {
-    const { name } = this.props;
 
     return (
       <div>
-        <h3>{ name }</h3>
-        <div>{ this.state && this.state.restaurants ?  JSON.stringify(this.state.restaurants) : '' }</div>
-    
+        <h3>Lista de Restaurantes</h3>
+
+        {(this.state && this.state.restaurants ? 
+          <ul>
+            {this.state.restaurants.map(mostrar => (
+              <li>
+                Restaurante: {mostrar.name}
+          </li>
+        
+            ))}
+          </ul>
+            : ''
+        )}
+
       </div>
+
     );
   }
 }
